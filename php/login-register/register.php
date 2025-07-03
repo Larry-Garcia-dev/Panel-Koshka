@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si el PIN existe en la tabla pines_registro
     try {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM pines_registro WHERE pin = ?");
+        $stmt = $conexion->prepare("SELECT COUNT(*) FROM pines_registro WHERE pin = ?");
         $stmt->execute([$pin]);
 
         if ($stmt->fetchColumn() == 0) {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si el correo ya está registrado
     try {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE Email = ?");
+        $stmt = $conexion->prepare("SELECT COUNT(*) FROM user WHERE Email = ?");
         $stmt->execute([$email]);
         if ($stmt->fetchColumn() > 0) {
             header("Location: ../../index.php?error=email_taken");
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insertar nuevo usuario
     try {
-        $stmt = $pdo->prepare("INSERT INTO user (Pin, NombreCompleto, Email, Usuario, Contraseña) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conexion->prepare("INSERT INTO user (Pin, NombreCompleto, Email, Usuario, Contraseña) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$pin, $name, $email, $user, $hashed_password]);
 
         header("Location: ../../index.php?success=registration");

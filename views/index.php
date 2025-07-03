@@ -1,3 +1,6 @@
+<?php
+include "../php/index.php";
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,6 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koshka Admin - Panel de Administración</title>
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -74,11 +79,11 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-shop"></i>   Admin
+            <a class="navbar-brand" href="index.php">
+                <i class="bi bi-shop"></i> Koshka Admin
             </a>
             <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">Lina Admin</span>
+                <span class="navbar-text me-3"><strong><?= htmlspecialchars($userName) ?></strong></span>
                 <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
                     <i class="bi bi-person-fill"></i>
                 </div>
@@ -113,48 +118,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="px-4 py-3">
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400"
-                                            alt="Vestido Elegante Rosa" class="product-img me-3">
-                                        <div>
-                                            <h6 class="mb-0 fw-semibold">
-                                                <a href="detalle-producto.html" class="text-decoration-none text-dark">
-                                                    Vestido Elegante Rosa
-                                                </a>
-                                            </h6>
+                            <?php foreach ($productos as $producto): ?>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <img src="<?= htmlspecialchars($producto['img']) ?: '../images/placeholder.jpg' ?>"
+                                                alt="<?= htmlspecialchars($producto['nombre']) ?>"
+                                                class="product-img me-3">
+                                            <div>
+                                                <h6 class="mb-0 fw-semibold">
+                                                    <a href="detalle.php?id=<?= $producto['id'] ?>" class="text-decoration-none text-dark">
+                                                        <?= htmlspecialchars($producto['nombre']) ?>
+                                                    </a>
+                                                </h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="badge bg-info">Vestidos</span>
-                                </td>
-                                <td class="px-4 py-3 fw-semibold">$89.99</td>
-                                <td class="px-4 py-3">
-                                    <span class="badge bg-light text-dark me-1">S</span>
-                                    <span class="badge bg-light text-dark me-1">M</span>
-                                    <span class="badge bg-light text-dark">L</span>
-                                    <span class="badge bg-light text-dark">XL</span>
-                                    <span class="badge bg-light text-dark">XXL</span>
-                                    <span class="badge bg-light text-dark">XXXL</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="badge bg-info"><?= htmlspecialchars($producto['categoria']) ?></span>
+                                    </td>
+                                    <td class="px-4 py-3 fw-semibold">$<?= number_format($producto['precio'], 2) ?></td>
+                                    <td class="px-4 py-3">
+                                        <?php
+                                        $tallas = $tallasPorProducto[$producto['id']] ?? ['-'];
+                                        foreach ($tallas as $talla) {
+                                            echo '<span class="badge bg-light text-dark me-1">' . htmlspecialchars($talla) . '</span>';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="badge bg-success"><?= intval($producto['stock']) ?> unidades</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= htmlspecialchars($producto['nombre']) ?>">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
 
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="badge bg-success">15 unidades</span>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <a href="editar-producto.html" class="btn btn-sm btn-outline-primary me-2">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -162,25 +169,32 @@
     </div>
 
     <!-- Modal de Eliminación -->
-    <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content border-0 shadow">
+            <form method="POST" action="../php/baja_producto.php" class="modal-content border-0 shadow">
                 <div class="modal-body text-center p-4">
                     <div class="text-danger mb-3">
                         <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem;"></i>
                     </div>
-                    <h5 class="mb-3">¿Eliminar producto?</h5>
-                    <p class="text-muted mb-4">¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                    <h5 class="mb-3">¿Dar de baja el producto?</h5>
+                    <p class="text-muted mb-4">
+                        Estás a punto de dar de baja: <strong id="productoNombre"></strong><br>
+                        Esta acción ocultará el producto del panel.
+                    </p>
+                    <input type="hidden" name="producto_id" id="productoId">
                     <div class="d-flex gap-2 justify-content-center">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Dar de baja</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/index.js" ></script>
 </body>
 
 </html>

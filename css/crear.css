@@ -1,0 +1,65 @@
+:root {
+    --primary-color: #e91e63;
+    --secondary-color: #f8f9fa;
+    --accent-color: #6c757d;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), #ff6b9d);
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #c2185b, #e91e63);
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+.upload-area {
+    border: 2px dashed #e0e0e0;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+

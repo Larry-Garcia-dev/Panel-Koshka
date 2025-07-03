@@ -1,9 +1,18 @@
+<?php 
+  include_once "../config/db.php";
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koshka Admin Producto - Fashion Admin</title>
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -13,24 +22,24 @@
             --secondary-color: #f8f9fa;
             --accent-color: #6c757d;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
             color: var(--primary-color) !important;
         }
-        
+
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-primary {
             background: linear-gradient(45deg, var(--primary-color), #ff6b9d);
             border: none;
@@ -38,22 +47,24 @@
             font-weight: 500;
             padding: 10px 20px;
         }
-        
+
         .btn-primary:hover {
             background: linear-gradient(45deg, #c2185b, #e91e63);
         }
-        
-        .form-control, .form-select {
+
+        .form-control,
+        .form-select {
             border-radius: 10px;
             border: 1px solid #e0e0e0;
             padding: 12px 15px;
         }
-        
-        .form-control:focus, .form-select:focus {
+
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
         }
-        
+
         .upload-area {
             border: 2px dashed #e0e0e0;
             border-radius: 15px;
@@ -61,25 +72,26 @@
             text-align: center;
             transition: border-color 0.3s ease;
         }
-        
+
         .upload-area:hover {
             border-color: var(--primary-color);
         }
-        
+
         .form-check-input:checked {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .current-image {
             width: 120px;
             height: 120px;
             object-fit: cover;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -161,8 +173,8 @@
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Imagen Actual</label>
                                 <div class="mb-3">
-                                    <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400" 
-                                         alt="Vestido Elegante Rosa" class="current-image">
+                                    <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400"
+                                        alt="Vestido Elegante Rosa" class="current-image">
                                 </div>
                                 <div class="upload-area">
                                     <i class="bi bi-cloud-upload text-muted" style="font-size: 3rem;"></i>
@@ -184,47 +196,12 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeS" checked>
-                                            <label class="form-check-label fw-semibold" for="sizeS">S</label>
+                                        <div class="form-group border rounded p-3">
+                                            <label for="sizeInput" class="fw-semibold">Talla</label>
+                                            <input type="text" class="form-control" id="sizeInput" placeholder="Ingrese la talla">
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeM" checked>
-                                            <label class="form-check-label fw-semibold" for="sizeM">M</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeL" checked>
-                                            <label class="form-check-label fw-semibold" for="sizeL">L</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeXL">
-                                            <label class="form-check-label fw-semibold" for="sizeXL">XL</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeXXL">
-                                            <label class="form-check-label fw-semibold" for="sizeXXL">XXL</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeXXL">
-                                            <label class="form-check-label fw-semibold" for="sizeXXL">XXXL</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-check border rounded p-3">
-                                            <input class="form-check-input" type="checkbox" id="sizeXXL">
-                                            <label class="form-check-label fw-semibold" for="sizeXXL">Unica</label>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -245,6 +222,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 /* 32-34-36-38-40-42*/

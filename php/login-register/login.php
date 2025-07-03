@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Buscar usuario por correo
-        $stmt = $pdo->prepare("SELECT * FROM user WHERE Email = ?");
+        $stmt = $conexion->prepare("SELECT * FROM user WHERE Email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
