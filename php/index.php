@@ -51,3 +51,6 @@ $stmtCustom = $conexion->query($sqlPersonalizadas);
 while ($row = $stmtCustom->fetch(PDO::FETCH_ASSOC)) {
     $tallasPorProducto[$row['producto_id']][] = $row['talla_personalizada'];
 }
+//=======================================================  Obtener imagen del usuario  =================================================================
+
+

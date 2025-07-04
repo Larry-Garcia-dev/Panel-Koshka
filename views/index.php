@@ -77,20 +77,7 @@ include "../php/index.php";
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="bi bi-shop"></i> Koshka Admin
-            </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3"><strong><?= htmlspecialchars($userName) ?></strong></span>
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                    <i class="bi bi-person-fill"></i>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+    <?php include "nav.php"; ?>
     <!-- Main Content -->
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -191,10 +178,12 @@ include "../php/index.php";
         </div>
     </div>
 
+    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../js/index.js" ></script>
+    <script src="../js/index.js"></script>
 </body>
 
 </html>

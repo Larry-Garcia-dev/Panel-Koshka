@@ -1,7 +1,5 @@
 <?php 
-  include_once "../config/db.php";
-
-
+require "../php/editar.php";
 ?>
 
 <!DOCTYPE html>
@@ -94,19 +92,8 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-shop"></i> Koshka Admin
-            </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3">Panel de Administración</span>
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                    <i class="bi bi-person-fill"></i>
-                </div>
-            </div>
-        </div>
-    </nav>
+       <?php include "nav.php"; ?>
+
 
     <!-- Main Content -->
     <div class="container mt-4">
@@ -224,5 +211,3 @@
 </body>
 
 </html>
-
-/* 32-34-36-38-40-42*/
