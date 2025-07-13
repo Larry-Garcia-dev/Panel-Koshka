@@ -1,5 +1,5 @@
 <?php
-include "../php/index.php";
+include "../php/baja.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -82,7 +82,7 @@ include "../php/index.php";
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h2 class="fw-bold text-dark mb-1">Productos</h2>
+                <h2 class="fw-bold text-dark mb-1">Productos en baja</h2>
                 <p class="text-muted">Gestiona tu inventario de productos de moda</p>
             </div>
             <a href="crear.php" class="btn btn-primary">
@@ -101,7 +101,6 @@ include "../php/index.php";
                                 <th class="px-4 py-3">Precio</th>
                                 <th class="px-4 py-3">Tallas</th>
                                 <th class="px-4 py-3">Stock</th>
-                                <th class="px-4 py-3">colores</th>
                                 <th class="px-4 py-3">Acciones</th>
                             </tr>
                         </thead>
@@ -138,18 +137,13 @@ include "../php/index.php";
                                         <span class="badge bg-success"><?= intval($producto['stock']) ?> unidades</span>
                                     </td>
                                     <td class="px-4 py-3">
-
-                                    </td>
-                                    <td class="px-4 py-3">
                                         <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= htmlspecialchars($producto['nombre']) ?>">
-                                            <i class="bi bi-trash"></i>
+                                        <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= htmlspecialchars($producto['nombre']) ?>">
+                                            <i class="bi bi-check-circle"></i>
                                         </button>
-                                        <a href="#" class="btn btn-sm btn-outline-primary me-2">
-                                            <i class="bi bi-cloud-upload me-2"></i>
-                                        </a>
+
 
                                     </td>
                                 </tr>
@@ -165,20 +159,20 @@ include "../php/index.php";
     <!-- Modal de Eliminación -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form method="POST" action="../php/baja_producto.php" class="modal-content border-0 shadow">
+            <form method="POST" action="../php/alta.php" class="modal-content border-0 shadow">
                 <div class="modal-body text-center p-4">
                     <div class="text-danger mb-3">
                         <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem;"></i>
                     </div>
-                    <h5 class="mb-3">¿Dar de baja el producto?</h5>
+                    <h5 class="mb-3">¿Dar de alta el producto?</h5>
                     <p class="text-muted mb-4">
-                        Estás a punto de dar de baja: <strong id="productoNombre"></strong><br>
-                        Esta acción ocultará el producto del panel.
+                        Estás a punto de dar de alta: <strong id="productoNombre"></strong><br>
+                        Esta acción mostrara el producto en el panel principal
                     </p>
                     <input type="hidden" name="producto_id" id="productoId">
                     <div class="d-flex gap-2 justify-content-center">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Dar de baja</button>
+                        <button type="submit" class="btn btn-danger">Dar de alta</button>
                     </div>
                 </div>
             </form>

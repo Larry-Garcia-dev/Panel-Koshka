@@ -21,7 +21,7 @@ include("../php/create.php");
 
 <body>
     <!-- Navigation -->
-        <?php include "nav.php"; ?>
+    <?php include "nav.php"; ?>
     <!-- Main Content -->
     <div class="container mt-4">
         <div class="d-flex align-items-center mb-4">
@@ -133,6 +133,7 @@ include("../php/create.php");
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
 
                     <hr class="my-4">

@@ -40,7 +40,7 @@
                     <input name="Email" type="text" placeholder="Correo Electronico">
                     <div style="position: relative;">
                         <input name="Password" id="loginPassword" type="password" placeholder="Contraseña">
-                        <i class="bi bi-eye-slash" id="toggleLoginPassword" style="position: absolute; right: 10px; top: 10px; cursor: pointer;"></i>
+                        <i class="bi bi-eye-slash" id="toggleLoginPassword" style="position: absolute; right: 10px; top: 30px; cursor: pointer;"></i>
                     </div>
                     <button>Entrar</button>
                 </form>
@@ -54,7 +54,7 @@
                     <input name="User" type="text" placeholder="Usuario">
                     <div style="position: relative;">
                         <input type="password" name="Password" id="registerPassword" placeholder="Contraseña" required>
-                        <i class="bi bi-eye-slash" id="toggleRegisterPassword" style="position: absolute; right: 10px; top: 10px; cursor: pointer;"></i>
+                        <i class="bi bi-eye-slash" id="toggleRegisterPassword" style="position: absolute; right: 10px; top: 30px; cursor: pointer;"></i>
                     </div>
 
                     <!-- Mensaje de validación en tiempo real -->
