@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2025 a las 22:57:52
+-- Tiempo de generación: 14-07-2025 a las 12:59:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -190,7 +190,8 @@ CREATE TABLE `pines_registro` (
 --
 
 INSERT INTO `pines_registro` (`id`, `pin`, `creado_en`) VALUES
-(1, '123456', '2025-06-23 23:15:45');
+(1, '3017', '2025-06-23 23:15:45'),
+(2, '145836', '2025-07-14 10:57:51');
 
 -- --------------------------------------------------------
 
@@ -208,16 +209,6 @@ CREATE TABLE `productos` (
   `img` varchar(255) NOT NULL,
   `estado` enum('activo','inactivo') DEFAULT 'activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `productos`
---
-
-INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `stock`, `categoria_id`, `img`, `estado`) VALUES
-(7, 'Vestido Elegante Rosa', 'Vestido muy bonito marca pajarito para guisas y ñeras', 50000.00, 12, 6, '../images/productos/prod_6867053e8a5e3.jpg', 'inactivo'),
-(8, 'Pantalon para tiendas', 'pantalon apra tiendas los usas como muestra de respeto', 12000.00, 15, 4, '../images/productos/prod_686705fc5b220.jpg', 'inactivo'),
-(9, 'Vestido Elegante Rosa', 'Defina la elegancia con líneas puras y una silueta impecable. Este vestido, confeccionado en un lujoso crepé que se desliza sobre la figura, presenta un escote [tipo de escote, ej: asimétrico, halter, barco] que acentúa sutilmente los hombros. Su corte [tipo de corte, ej: sirena, recto, imperio] y su caída fluida aseguran un movimiento grácil y una presencia inolvidable. Ideal para la mujer que encuentra la fuerza en la simplicidad.', 150000.00, 5, 6, '../images/productos/prod_6872af514edf7.jpg', 'activo'),
-(10, 'Pantalon para tiendas', 'hola mundo funcional ', 15000.00, 5, 4, '../images/productos/prod_6872b5515aa56.png', 'activo');
 
 -- --------------------------------------------------------
 
@@ -243,65 +234,6 @@ CREATE TABLE `producto_talla` (
   `talla_id` int(11) DEFAULT NULL,
   `talla_personalizada` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `producto_talla`
---
-
-INSERT INTO `producto_talla` (`id`, `producto_id`, `talla_id`, `talla_personalizada`) VALUES
-(23, 7, 1, NULL),
-(24, 7, 2, NULL),
-(25, 7, 3, NULL),
-(26, 7, 4, NULL),
-(27, 7, 5, NULL),
-(28, 7, 6, NULL),
-(29, 7, 7, NULL),
-(30, 7, 8, NULL),
-(31, 7, 17, NULL),
-(240, 10, 16, NULL),
-(241, 10, 12, NULL),
-(242, 10, 39, NULL),
-(243, 10, 42, NULL),
-(244, 10, 44, NULL),
-(245, 10, 8, NULL),
-(246, 10, 4, NULL),
-(247, 10, 11, NULL),
-(248, 10, 6, NULL),
-(249, 10, 7, NULL),
-(250, 10, NULL, 'power'),
-(251, 8, 17, NULL),
-(252, 8, 14, NULL),
-(253, 8, 11, NULL),
-(254, 8, NULL, 'manzana'),
-(255, 9, 16, NULL),
-(256, 9, 17, NULL),
-(257, 9, 18, NULL),
-(258, 9, 12, NULL),
-(259, 9, 39, NULL),
-(260, 9, 41, NULL),
-(261, 9, 42, NULL),
-(262, 9, 43, NULL),
-(263, 9, 13, NULL),
-(264, 9, 44, NULL),
-(265, 9, 45, NULL),
-(266, 9, 46, NULL),
-(267, 9, 47, NULL),
-(268, 9, 48, NULL),
-(269, 9, 8, NULL),
-(270, 9, 49, NULL),
-(271, 9, 9, NULL),
-(272, 9, 14, NULL),
-(273, 9, 10, NULL),
-(274, 9, 15, NULL),
-(275, 9, 4, NULL),
-(276, 9, 3, NULL),
-(277, 9, 2, NULL),
-(278, 9, 11, NULL),
-(279, 9, 5, NULL),
-(280, 9, 1, NULL),
-(281, 9, 6, NULL),
-(282, 9, 7, NULL),
-(283, 9, NULL, 'pera');
 
 -- --------------------------------------------------------
 
@@ -392,6 +324,12 @@ ALTER TABLE `colores`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `pines_registro`
+--
+ALTER TABLE `pines_registro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -443,22 +381,28 @@ ALTER TABLE `colores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
+-- AUTO_INCREMENT de la tabla `pines_registro`
+--
+ALTER TABLE `pines_registro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_color`
 --
 ALTER TABLE `producto_color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_talla`
 --
 ALTER TABLE `producto_talla`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=284;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=558;
 
 --
 -- AUTO_INCREMENT de la tabla `tallas_ropa`
