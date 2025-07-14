@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
 }
 
+/* --- Estilos generales (se mantienen igual) --- */
 .navbar-brand {
     font-weight: 700;
     color: var(--primary-color) !important;
@@ -63,3 +64,56 @@ body {
     border-color: var(--primary-color);
 }
 
+/* ================================================= */
+/* ============ CSS CORREGIDO PARA COLORES ========= */
+/* ================================================= */
+
+/* ... (todos tus estilos existentes) ... */
+
+
+/* ================================================= */
+/* ========= CSS PARA LA PALETA DE COLORES ========= */
+/* ================================================= */
+
+#color-palette-container {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+}
+
+.color-swatch {
+    width: 100%;
+    padding-bottom: 100%; 
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 3px solid #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ▼▼▼ AÑADE ESTO A TU CSS ▼▼▼ */
+/* Estilo para el estado seleccionado del color */
+.color-swatch.selected {
+    box-shadow: 0 0 0 3px #e91e63, 0 6px 20px rgba(0, 0, 0, 0.25);
+    transform: scale(1.1);
+}
+
+/* Checkmark (palomita) para el color seleccionado */
+.color-swatch.selected::after {
+    content: '✔';
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

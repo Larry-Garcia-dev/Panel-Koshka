@@ -1,5 +1,4 @@
 <?php
-// php/login-register/conexion.php
 
 $host = 'localhost';
 $dbname = 'koshka';

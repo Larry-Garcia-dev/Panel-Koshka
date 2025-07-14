@@ -72,6 +72,19 @@ include "../php/index.php";
             object-fit: cover;
             border-radius: 10px;
         }
+
+        /* Dentro de la etiqueta <style> en views/index.php */
+
+        .color-dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 4px;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -138,7 +151,24 @@ include "../php/index.php";
                                         <span class="badge bg-success"><?= intval($producto['stock']) ?> unidades</span>
                                     </td>
                                     <td class="px-4 py-3">
+                                        <?php
+                                        // Obtenemos los colores para el producto actual
+                                        $colores = $coloresPorProducto[$producto['id']] ?? [];
 
+                                        if (empty($colores)) {
+                                            echo '<span class="text-muted small">-</span>';
+                                        } else {
+                                            // Mostramos un máximo de 5 colores para no saturar la tabla
+                                            $colores_mostrados = array_slice($colores, 0, 5);
+                                            foreach ($colores_mostrados as $color) {
+                                                echo '<span class="color-dot" style="background-color: ' . htmlspecialchars($color['hex']) . ';" title="' . htmlspecialchars($color['nombre']) . '"></span>';
+                                            }
+                                            // Si hay más de 5 colores, mostramos un indicador
+                                            if (count($colores) > 5) {
+                                                echo '<span class="badge bg-light text-dark ms-1">+' . (count($colores) - 5) . '</span>';
+                                            }
+                                        }
+                                        ?>
                                     </td>
                                     <td class="px-4 py-3">
                                         <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
@@ -147,7 +177,7 @@ include "../php/index.php";
                                         <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= htmlspecialchars($producto['nombre']) ?>">
                                             <i class="bi bi-trash"></i>
                                         </button>
-                                        <a href="#" class="btn btn-sm btn-outline-primary me-2">
+                                        <a href="../api/subir_producto.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
                                             <i class="bi bi-cloud-upload me-2"></i>
                                         </a>
 

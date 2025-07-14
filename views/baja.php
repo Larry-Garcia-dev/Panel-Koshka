@@ -137,9 +137,9 @@ include "../php/baja.php";
                                         <span class="badge bg-success"><?= intval($producto['stock']) ?> unidades</span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
+                                        <!-- <a href="editar.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
                                             <i class="bi bi-pencil"></i>
-                                        </a>
+                                        </a> -->
                                         <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= htmlspecialchars($producto['nombre']) ?>">
                                             <i class="bi bi-check-circle"></i>
                                         </button>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2025 a las 01:17:58
+-- Tiempo de generación: 13-07-2025 a las 22:57:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -63,8 +63,115 @@ INSERT INTO `categorias_ropa` (`id`, `nombre`, `descripcion`) VALUES
 CREATE TABLE `colores` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `codigo_hex` varchar(7) DEFAULT NULL
+  `codigo_hex` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `colores`
+--
+
+INSERT INTO `colores` (`id`, `nombre`, `codigo_hex`) VALUES
+(1, 'Red', '#FF0000'),
+(2, 'Green', '#00FF00'),
+(3, 'Blue', '#0000FF'),
+(4, 'Yellow', '#FFFF00'),
+(5, 'Cyan', '#00FFFF'),
+(6, 'Magenta', '#FF00FF'),
+(7, 'Black', '#000000'),
+(8, 'White', '#FFFFFF'),
+(9, 'Gray', '#808080'),
+(10, 'Orange', '#FFA500'),
+(11, 'Pink', '#FFC0CB'),
+(12, 'Purple', '#800080'),
+(13, 'Brown', '#A52A2A'),
+(14, 'Gold', '#FFD700'),
+(15, 'Silver', '#C0C0C0'),
+(16, 'Beige', '#F5F5DC'),
+(17, 'Ivory', '#FFFFF0'),
+(18, 'Coral', '#FF7F50'),
+(19, 'Aqua', '#00FFFF'),
+(20, 'Lime', '#00FF00'),
+(21, 'Maroon', '#800000'),
+(22, 'Navy', '#000080'),
+(23, 'Olive', '#808000'),
+(24, 'Teal', '#008080'),
+(25, 'Violet', '#EE82EE'),
+(26, 'Turquoise', '#40E0D0'),
+(27, 'Indigo', '#4B0082'),
+(28, 'Salmon', '#FA8072'),
+(29, 'Khaki', '#F0E68C'),
+(30, 'Lavender', '#E6E6FA'),
+(31, 'Crimson', '#DC143C'),
+(32, 'Plum', '#DDA0DD'),
+(33, 'Orchid', '#DA70D6'),
+(34, 'Mint', '#98FF98'),
+(35, 'Peach', '#FFE5B4'),
+(36, 'Chocolate', '#D2691E'),
+(37, 'Tan', '#D2B48C'),
+(38, 'Sky Blue', '#87CEEB'),
+(39, 'Royal Blue', '#4169E1'),
+(40, 'Slate Gray', '#708090'),
+(41, 'Steel Blue', '#4682B4'),
+(42, 'Tomato', '#FF6347'),
+(43, 'Wheat', '#F5DEB3'),
+(44, 'Sea Green', '#2E8B57'),
+(45, 'Sienna', '#A0522D'),
+(46, 'Snow', '#FFFAFA'),
+(47, 'Spring Green', '#00FF7F'),
+(48, 'Thistle', '#D8BFD8'),
+(49, 'Powder Blue', '#B0E0E6'),
+(50, 'Peru', '#CD853F'),
+(51, 'Pale Green', '#98FB98'),
+(52, 'Pale Turquoise', '#AFEEEE'),
+(53, 'Pale Violet Red', '#DB7093'),
+(54, 'Papaya Whip', '#FFEFD5'),
+(55, 'Moccasin', '#FFE4B5'),
+(56, 'Misty Rose', '#FFE4E1'),
+(57, 'Medium Violet Red', '#C71585'),
+(58, 'Medium Turquoise', '#48D1CC'),
+(59, 'Medium Spring Green', '#00FA9A'),
+(60, 'Medium Sea Green', '#3CB371'),
+(61, 'Medium Purple', '#9370DB'),
+(62, 'Medium Orchid', '#BA55D3'),
+(63, 'Medium Blue', '#0000CD'),
+(64, 'Medium Aquamarine', '#66CDAA'),
+(65, 'Lawn Green', '#7CFC00'),
+(66, 'Light Salmon', '#FFA07A'),
+(67, 'Light Sea Green', '#20B2AA'),
+(68, 'Light Sky Blue', '#87CEFA'),
+(69, 'Light Slate Gray', '#778899'),
+(70, 'Light Steel Blue', '#B0C4DE'),
+(71, 'Light Yellow', '#FFFFE0'),
+(72, 'Linen', '#FAF0E6'),
+(73, 'Hot Pink', '#FF69B4'),
+(74, 'Honeydew', '#F0FFF0'),
+(75, 'Green Yellow', '#ADFF2F'),
+(76, 'Gainsboro', '#DCDCDC'),
+(77, 'Floral White', '#FFFAF0'),
+(78, 'Dodger Blue', '#1E90FF'),
+(79, 'Deep Sky Blue', '#00BFFF'),
+(80, 'Deep Pink', '#FF1493'),
+(81, 'Dark Violet', '#9400D3'),
+(82, 'Dark Turquoise', '#00CED1'),
+(83, 'Dark Slate Gray', '#2F4F4F'),
+(84, 'Dark Sea Green', '#8FBC8F'),
+(85, 'Dark Salmon', '#E9967A'),
+(86, 'Dark Red', '#8B0000'),
+(87, 'Dark Orange', '#FF8C00'),
+(88, 'Dark Orchid', '#9932CC'),
+(89, 'Dark Olive Green', '#556B2F'),
+(90, 'Dark Magenta', '#8B008B'),
+(91, 'Dark Khaki', '#BDB76B'),
+(92, 'Dark Green', '#006400'),
+(93, 'Dark Gray', '#A9A9A9'),
+(94, 'Dark Goldenrod', '#B8860B'),
+(95, 'Dark Cyan', '#008B8B'),
+(96, 'Dark Blue', '#00008B'),
+(97, 'Chartreuse', '#7FFF00'),
+(98, 'Cadet Blue', '#5F9EA0'),
+(99, 'Burly Wood', '#DEB887'),
+(100, 'Azure', '#F0FFFF'),
+(101, 'Antique White', '#FAEBD7');
 
 -- --------------------------------------------------------
 
@@ -333,7 +440,7 @@ ALTER TABLE `categorias_ropa`
 -- AUTO_INCREMENT de la tabla `colores`
 --
 ALTER TABLE `colores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`

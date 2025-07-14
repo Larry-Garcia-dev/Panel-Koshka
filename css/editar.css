@@ -70,3 +70,88 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
+/* ================================================= */
+/* ========= CSS PARA LA PALETA DE COLORES ========= */
+/* ================================================= */
+
+#color-palette-container {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+}
+
+.color-swatch {
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 3px solid #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ▼▼▼ AÑADE ESTO A TU CSS ▼▼▼ */
+/* Estilo para el estado seleccionado del color */
+.color-swatch.selected {
+    box-shadow: 0 0 0 3px #e91e63, 0 6px 20px rgba(0, 0, 0, 0.25);
+    transform: scale(1.1);
+}
+
+/* Checkmark (palomita) para el color seleccionado */
+.color-swatch.selected::after {
+    content: '✔';
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* ================================================= */
+/* ==== ESTILOS PARA LA SECCIÓN COLORES ACTUALES === */
+/* ================================================= */
+
+/* Contenedor para agrupar visualmente los colores actuales */
+#current-colors-container {
+    background-color: #f0f2f5;
+    /* Un fondo sutil para la sección */
+    padding: 1rem;
+    border-radius: 10px;
+    min-height: 50px;
+    /* Altura mínima por si no hay colores */
+}
+
+/* Hacemos los círculos de esta sección un poco más pequeños */
+#current-colors-container .color-swatch {
+    width: 32px;
+    height: 32px;
+    /* Anulamos el truco del padding para tener un tamaño fijo */
+    padding-bottom: 0;
+    cursor: default;
+    /* Cambiamos el cursor para que no parezca clickeable */
+}
+
+/* Anulamos el efecto de zoom y la sombra de 'seleccionado' */
+#current-colors-container .color-swatch:hover,
+#current-colors-container .color-swatch.selected {
+    transform: none;
+    /* Sin zoom */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra simple y constante */
+}
+
+/* Ocultamos el check '✔' en esta sección, ya que no es de selección */
+#current-colors-container .color-swatch::after {
+    content: none;
+}

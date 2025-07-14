@@ -133,7 +133,13 @@ include("../php/create.php");
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="mb-3">
+                            <h3 class="mb-3 fw-semibold">Paleta de Colores *</h3>
+                            <input type="hidden" name="selected_colors" id="selectedColorsInput">
+                            <div id="color-palette-container">
+                            </div>
+                        </div>
+
                     </div>
 
                     <hr class="my-4">
@@ -151,74 +157,7 @@ include("../php/create.php");
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const uploadArea = document.getElementById('uploadArea');
-        const inputFile = document.getElementById('productImage');
-        const selectBtn = document.getElementById('selectImageBtn');
-        const placeholder = document.getElementById('uploadPlaceholder');
-        const imagePreview = document.getElementById('imagePreview');
-        const previewImg = document.getElementById('previewImg');
-        const removeBtn = document.getElementById('removeImageBtn');
-
-        // Abrir selector al hacer clic en botón o área
-        selectBtn.addEventListener('click', () => inputFile.click());
-        uploadArea.addEventListener('click', (e) => {
-            if (!imagePreview.classList.contains('d-none') || e.target.id === 'removeImageBtn') return;
-            inputFile.click();
-        });
-
-        // Drag and drop
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('border-primary');
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('border-primary');
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('border-primary');
-            const files = e.dataTransfer.files;
-            if (files.length === 1) {
-                inputFile.files = files;
-                showImagePreview(files[0]);
-            } else {
-                alert("Solo puedes subir una imagen.");
-            }
-        });
-
-        // Imagen seleccionada desde input
-        inputFile.addEventListener('change', () => {
-            if (inputFile.files.length === 1) {
-                showImagePreview(inputFile.files[0]);
-            } else {
-                alert("Solo puedes subir una imagen.");
-                inputFile.value = '';
-            }
-        });
-
-        // Mostrar vista previa en el contenedor
-        function showImagePreview(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                placeholder.classList.add('d-none');
-                imagePreview.classList.remove('d-none');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Eliminar imagen seleccionada
-        removeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            inputFile.value = '';
-            previewImg.src = '';
-            imagePreview.classList.add('d-none');
-            placeholder.classList.remove('d-none');
-        });
-    </script>
+    <script src="../js/crear.js"></script>
 
 
 

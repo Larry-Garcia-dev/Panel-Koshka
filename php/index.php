@@ -54,3 +54,20 @@ while ($row = $stmtCustom->fetch(PDO::FETCH_ASSOC)) {
 //=======================================================  Obtener imagen del usuario  =================================================================
 
 
+// ▼▼▼ AÑADE ESTE BLOQUE AL FINAL DE TU ARCHIVO PHP ▼▼▼
+
+// =======================================================  Obtener Colores por Producto =================================================================
+$coloresPorProducto = [];
+$sqlColores = "SELECT pc.producto_id, c.codigo_hex, c.nombre
+               FROM producto_color pc
+               JOIN colores c ON pc.color_id = c.id";
+
+$stmtColores = $conexion->query($sqlColores);
+while ($row = $stmtColores->fetch(PDO::FETCH_ASSOC)) {
+    // Guardamos tanto el código hexadecimal como el nombre para usarlo en el 'title'
+    $coloresPorProducto[$row['producto_id']][] = [
+        'hex' => $row['codigo_hex'],
+        'nombre' => $row['nombre']
+    ];
+}
+// =======================================================  FIN de Obtener Colores por Producto =================================================================
