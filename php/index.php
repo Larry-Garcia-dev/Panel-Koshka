@@ -71,3 +71,18 @@ while ($row = $stmtColores->fetch(PDO::FETCH_ASSOC)) {
     ];
 }
 // =======================================================  FIN de Obtener Colores por Producto =================================================================
+// =======================================================  Obtener Colores Combinados por Producto =================================================================
+$coloresCombinadosPorProducto = [];
+$sqlCombinados = "SELECT pc.producto_id, c.codigo_hex, c.nombre, pc.grupo_combinacion
+                  FROM producto_color_combinado pc
+                  JOIN colores c ON pc.color_id = c.id
+                  ORDER BY pc.producto_id, pc.grupo_combinacion";
+
+$stmtCombinados = $conexion->query($sqlCombinados);
+while ($row = $stmtCombinados->fetch(PDO::FETCH_ASSOC)) {
+    // Agrupamos por producto y luego por grupo de combinación
+    $coloresCombinadosPorProducto[$row['producto_id']][$row['grupo_combinacion']][] = [
+        'hex' => $row['codigo_hex'],
+        'nombre' => $row['nombre']
+    ];
+}

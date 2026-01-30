@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         move_uploaded_file($tmp_name, $carpeta_destino . $filename);
     }
-
+ 
     try {
         $conexion->beginTransaction();
 
@@ -75,6 +75,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($colores_ids as $color_id) {
                 if (is_numeric($color_id)) {
                     $stmt_color->execute([':producto_id' => $producto_id, ':color_id' => trim($color_id)]);
+                }
+            }
+        }
+         // ▼▼▼ AÑADIR ESTE BLOQUE ▼▼▼
+        // Guardar colores combinados
+        $colores_combinados = $_POST['colores_combinados'] ?? [];
+        if (!empty($colores_combinados)) {
+            $stmt_combinado = $conexion->prepare(
+                "INSERT INTO producto_color_combinado (producto_id, color_id, grupo_combinacion) VALUES (:producto_id, :color_id, :grupo)"
+            );
+            // El índice del array (0, 1, 2...) será nuestro 'grupo_combinacion'
+            foreach ($colores_combinados as $grupo_id => $colores_del_grupo) {
+                foreach ($colores_del_grupo as $color_id) {
+                    $stmt_combinado->execute([
+                        ':producto_id' => $producto_id,
+                        ':color_id'    => $color_id,
+                        ':grupo'       => $grupo_id
+                    ]);
                 }
             }
         }

@@ -9,83 +9,13 @@ include "../php/index.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koshka Admin - Panel de Administración</title>
     <link rel="icon" href="../images/favicon.png" type="image/x-icon">
-
+    <link rel="stylesheet" href="../css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #e91e63;
-            --secondary-color: #f8f9fa;
-            --accent-color: #6c757d;
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
-
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), #ff6b9d);
-            border: none;
-            border-radius: 10px;
-            font-weight: 500;
-            padding: 10px 20px;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #c2185b, #e91e63);
-        }
-
-        .table th {
-            background-color: var(--secondary-color);
-            font-weight: 600;
-            color: var(--accent-color);
-            border: none;
-        }
-
-        .badge {
-            border-radius: 20px;
-            padding: 5px 12px;
-        }
-
-        .product-img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        /* Dentro de la etiqueta <style> en views/index.php */
-
-        .color-dot {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 4px;
-            border: 2px solid #fff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-            vertical-align: middle;
-        }
-    </style>
 </head>
 
 <body>
@@ -114,8 +44,10 @@ include "../php/index.php";
                                 <th class="px-4 py-3">Precio</th>
                                 <th class="px-4 py-3">Tallas</th>
                                 <th class="px-4 py-3">Stock</th>
-                                <th class="px-4 py-3">colores</th>
+                                <!-- <th class="px-4 py-3">colores</th> -->
+                                <th class="px-4 py-3">Colores,combinados</th>
                                 <th class="px-4 py-3">Acciones</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -150,23 +82,57 @@ include "../php/index.php";
                                     <td class="px-4 py-3">
                                         <span class="badge bg-success"><?= intval($producto['stock']) ?> unidades</span>
                                     </td>
-                                    <td class="px-4 py-3">
+                                    <td class="px-4 py-3 align-middle">
                                         <?php
-                                        // Obtenemos los colores para el producto actual
-                                        $colores = $coloresPorProducto[$producto['id']] ?? [];
-
-                                        if (empty($colores)) {
-                                            echo '<span class="text-muted small">-</span>';
-                                        } else {
-                                            // Mostramos un máximo de 5 colores para no saturar la tabla
-                                            $colores_mostrados = array_slice($colores, 0, 5);
-                                            foreach ($colores_mostrados as $color) {
+                                        // --- Colores Individuales (esta parte no cambia) ---
+                                        $colores_individuales = $coloresPorProducto[$producto['id']] ?? [];
+                                        if (!empty($colores_individuales)) {
+                                            foreach ($colores_individuales as $color) {
                                                 echo '<span class="color-dot" style="background-color: ' . htmlspecialchars($color['hex']) . ';" title="' . htmlspecialchars($color['nombre']) . '"></span>';
                                             }
-                                            // Si hay más de 5 colores, mostramos un indicador
-                                            if (count($colores) > 5) {
-                                                echo '<span class="badge bg-light text-dark ms-1">+' . (count($colores) - 5) . '</span>';
+                                        }
+
+                                        // --- Colores Combinados (AQUÍ ESTÁ EL CAMBIO) ---
+                                        $combinaciones = $coloresCombinadosPorProducto[$producto['id']] ?? [];
+                                        if (!empty($combinaciones)) {
+                                            // Si ya hay colores individuales, añadimos un separador visual
+                                            if (!empty($colores_individuales)) {
+                                                echo '<hr class="my-2 border-top">';
                                             }
+
+                                            foreach ($combinaciones as $grupo) {
+                                                $num_colores = count($grupo);
+
+                                                // CASO 1: Combinación de 2 colores (diseño especial)
+                                                if ($num_colores == 2) {
+                                                    $color_fondo = $grupo[0]['hex'];
+                                                    $color_circulo = $grupo[1]['hex'];
+                                                    $nombres = $grupo[0]['nombre'] . ' + ' . $grupo[1]['nombre'];
+
+                                                    echo '<div class="color-combo-display" style="background-color: ' . htmlspecialchars($color_fondo) . ';" title="' . htmlspecialchars($nombres) . '">';
+                                                    echo '<style>.color-combo-display[title="' . htmlspecialchars($nombres) . '"]::after { background-color: ' . htmlspecialchars($color_circulo) . '; }</style>';
+                                                    echo '</div>';
+                                                }
+                                                // CASO 2: Más de 2 colores (se muestran como puntos solapados)
+                                                else if ($num_colores > 2) {
+                                                    echo '<div class="color-dot-cluster">';
+                                                    foreach ($grupo as $color_combinado) {
+                                                        echo '<span class="color-dot" style="background-color: ' . htmlspecialchars($color_combinado['hex']) . ';" title="' . htmlspecialchars($color_combinado['nombre']) . '"></span>';
+                                                    }
+                                                    echo '</div>';
+                                                }
+                                                // CASO 3: Solo 1 color en una 'combinación' (se muestra como un punto normal)
+                                                else {
+                                                    foreach ($grupo as $color_combinado) {
+                                                        echo '<span class="color-dot" style="background-color: ' . htmlspecialchars($color_combinado['hex']) . ';" title="' . htmlspecialchars($color_combinado['nombre']) . ' (Comb.)"></span>';
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        // Si no hay ningún color en total
+                                        if (empty($colores_individuales) && empty($combinaciones)) {
+                                            echo '<span class="text-muted small">-</span>';
                                         }
                                         ?>
                                     </td>
@@ -180,10 +146,15 @@ include "../php/index.php";
                                         <a href="../api/subir_producto.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
                                             <i class="bi bi-cloud-upload me-2"></i>
                                         </a>
-
+                                        <a href="../api/shopify.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2" viewBox="0 0 24 24">
+                                                <path d="M9.7 0C8.1 0 7.1 1.4 6.7 2.7L6.6 3C6.5 2.8 6.4 2.7 6.2 2.5 5.8 2.1 5.3 2.1 5.1 2.2L0 3.9l2.7 18.5 5.8 1.6 8.5-1.9 2.9-17.2-5.5-2.6c-.1-.1-.2-.1-.3-.1H9.7zM9.7 1h5.4c.1 0 .2 0 .3.1l4.5 2.1L17.2 19l-7.4 1.7-5.3-1.5L1.2 4.5 5.5 3l.4 1.2h.1C6.4 2.2 7.7 1 9.7 1z" />
+                                            </svg>
+                                        </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+
                         </tbody>
 
                     </table>

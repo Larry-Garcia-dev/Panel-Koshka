@@ -11,6 +11,10 @@ require "../php/editar.php";
     <link rel="stylesheet" href="../css/editar.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+    </style>
 </head>
 <body>
     <?php include "nav.php"; ?>
@@ -28,6 +32,8 @@ require "../php/editar.php";
             <div class="card-body p-4">
                 <form method="POST" enctype="multipart/form-data" action="../php/editar.php">
                     <input type="hidden" name="product_id" value="<?= htmlspecialchars($producto['id']); ?>">
+                    <input type="hidden" name="imagen_actual" value="<?= htmlspecialchars($producto['img']); ?>">
+                    
                     <div class="row gx-5">
                         <div class="col-lg-6">
                             <div class="mb-3">
@@ -63,7 +69,7 @@ require "../php/editar.php";
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                       <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Imagen del Producto</label>
                                 <div class="mb-2 text-center">
@@ -110,23 +116,52 @@ require "../php/editar.php";
                     <hr class="my-4">
 
                     <div class="mb-4">
-                        <h4 class="fw-semibold mb-3">Colores Actuales</h4>
-                        <div id="current-colors-container" class="d-flex flex-wrap align-items-center gap-2">
-                            <?php if (empty($productoColores)): ?>
-                                <p class="text-muted m-0">Este producto no tiene colores asignados.</p>
-                            <?php else: ?>
-                                <?php foreach ($productoColores as $color): ?>
-                                    <span class="color-swatch" style="background-color: <?= htmlspecialchars($color['codigo_hex']); ?>;" title="<?= htmlspecialchars($color['nombre']); ?>"></span>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                        <h4 class="fw-semibold mb-3">Colores Únicos</h4>
+                        <div id="current-colors-container" class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                             <?php foreach ($productoColores as $color): ?>
+                                <span class="color-swatch" style="background-color: <?= htmlspecialchars($color['codigo_hex']); ?>;" title="<?= htmlspecialchars($color['nombre']); ?>"></span>
+                            <?php endforeach; ?>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="mb-3 fw-semibold">Modificar Paleta de Colores</h4>
+                        <h5 class="mb-3 fw-semibold">Modificar Paleta de Colores Únicos</h5>
                         <input type="hidden" name="selected_colors" id="selectedColorsInput">
                         <div id="color-palette-container"></div>
                     </div>
 
+                    <hr class="my-4">
+                    
+                    <div class="mb-3">
+                        <h4 class="mb-3 fw-semibold">Editar Colores Combinados</h4>
+                        <div id="combined-colors-container">
+                            <?php foreach ($coloresCombinadosExistentes as $grupo_id => $colores_en_grupo): ?>
+                                <div class="combined-group border rounded p-3 mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Grupo de Combinación</h6>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.closest('.combined-group').remove()">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 border rounded p-2 mb-2">
+                                        <?php
+                                        $ids_en_grupo = array_column($colores_en_grupo, 'id');
+                                        $todos_los_colores = $conexion->query("SELECT id, codigo_hex, nombre FROM colores ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+
+                                        foreach ($todos_los_colores as $color_disponible) {
+                                            $isChecked = in_array($color_disponible['id'], $ids_en_grupo);
+                                            $inputId = "combined_{$grupo_id}_{$color_disponible['id']}";
+                                            echo '<div>';
+                                            echo '<input type="checkbox" name="colores_combinados[' . $grupo_id . '][]" value="' . $color_disponible['id'] . '" id="' . $inputId . '" class="d-none" ' . ($isChecked ? 'checked' : '') . ' onchange="this.nextElementSibling.classList.toggle(\'selected\', this.checked)">';
+                                            echo '<label for="' . $inputId . '" class="color-swatch-small ' . ($isChecked ? 'selected' : '') . '" style="background-color: ' . htmlspecialchars($color_disponible['codigo_hex']) . ';" title="' . htmlspecialchars($color_disponible['nombre']) . '"></label>';
+                                            echo '</div>';
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary mt-2" id="add-combined-color-group">
+                            <i class="bi bi-plus-circle me-2"></i>Añadir Grupo de Combinación
+                        </button>
+                    </div>
                     <hr class="my-4">
 
                     <div class="d-flex justify-content-end gap-2">

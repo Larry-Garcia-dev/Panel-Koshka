@@ -139,6 +139,17 @@ include("../php/create.php");
                             <div id="color-palette-container">
                             </div>
                         </div>
+                        
+                        <hr class="my-4">
+
+                        <div class="mb-3">
+                            <h3 class="mb-3 fw-semibold">Colores Combinados (Opcional)</h3>
+                            <div id="combined-colors-container">
+                            </div>
+                            <button type="button" class="btn btn-outline-primary mt-2" id="add-combined-color-group">
+                                <i class="bi bi-plus-circle me-2"></i>Añadir Grupo de Combinación
+                            </button>
+                        </div>
 
                     </div>
 

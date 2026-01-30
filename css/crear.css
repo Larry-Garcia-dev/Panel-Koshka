@@ -117,3 +117,37 @@ body {
     transform: translate(-50%, -50%);
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+
+/* En tu archivo css/crear.css */
+.color-swatch-small {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.color-swatch-small:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch-small.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+/* Estilo para el swatch de color seleccionado */
+.color-swatch-small.selected {
+    border-color: #e91e63; /* O tu color primario */
+    box-shadow: 0 0 0 3px #e91e63;
+    transform: scale(1.1);
+}
+
+/* Estilo para el swatch de color deshabilitado */
+.color-swatch-small.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(80%);
+}

@@ -155,3 +155,31 @@ body {
 #current-colors-container .color-swatch::after {
     content: none;
 }
+
+.color-swatch-small {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.color-swatch-small:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch-small.selected {
+    border-color: #e91e63;
+    /* Usa tu color primario */
+    box-shadow: 0 0 0 3px #e91e63;
+}
+/* Agrégalo a tu archivo css/editar.css o uno principal */
+
+.color-swatch-small.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(80%);
+}

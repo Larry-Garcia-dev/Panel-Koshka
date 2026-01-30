@@ -1,0 +1,118 @@
+ :root {
+     --primary-color: #e91e63;
+     --secondary-color: #f8f9fa;
+     --accent-color: #6c757d;
+ }
+
+ body {
+     font-family: 'Inter', sans-serif;
+     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+     min-height: 100vh;
+ }
+
+ .navbar-brand {
+     font-weight: 700;
+     color: var(--primary-color) !important;
+ }
+
+ .card {
+     border: none;
+     border-radius: 15px;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+     transition: transform 0.2s ease;
+ }
+
+ .card:hover {
+     transform: translateY(-2px);
+ }
+
+ .btn-primary {
+     background: linear-gradient(45deg, var(--primary-color), #ff6b9d);
+     border: none;
+     border-radius: 10px;
+     font-weight: 500;
+     padding: 10px 20px;
+ }
+
+ .btn-primary:hover {
+     background: linear-gradient(45deg, #c2185b, #e91e63);
+ }
+
+ .table th {
+     background-color: var(--secondary-color);
+     font-weight: 600;
+     color: var(--accent-color);
+     border: none;
+ }
+
+ .badge {
+     border-radius: 20px;
+     padding: 5px 12px;
+ }
+
+ .product-img {
+     width: 60px;
+     height: 60px;
+     object-fit: cover;
+     border-radius: 10px;
+ }
+
+ /* Dentro de la etiqueta <style> en views/index.php */
+
+ .color-dot {
+     display: inline-block;
+     width: 20px;
+     height: 20px;
+     border-radius: 50%;
+     margin-right: 4px;
+     border: 2px solid #fff;
+     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+     vertical-align: middle;
+ }
+
+ /* Agrégalo a tu archivo css/estilos.css */
+
+ .color-combo-display {
+     display: inline-block;
+     position: relative;
+     width: 28px;
+     height: 28px;
+     border-radius: 6px;
+     /* Bordes ligeramente redondeados para el cuadrado */
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     margin-right: 8px;
+     /* Espacio entre combinaciones */
+     border: 1px solid rgba(0, 0, 0, 0.1);
+     overflow: hidden;
+     /* Para que el círculo no se salga */
+ }
+
+ /* El círculo que va en el medio */
+ .color-combo-display::after {
+     content: '';
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 14px;
+     /* La mitad del tamaño del padre */
+     height: 14px;
+     /* La mitad del tamaño del padre */
+     border-radius: 50%;
+     border: 1px solid rgba(255, 255, 255, 0.7);
+     /* Un borde blanco sutil */
+     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+ }
+
+ /* Estilo para combinaciones con más de 2 colores (fallback) */
+ .color-dot-cluster {
+     display: inline-flex;
+     padding-left: 5px;
+     margin-right: 8px;
+ }
+
+ .color-dot-cluster .color-dot {
+     margin-left: -5px;
+     /* Hace que los puntos se solapen */
+     border: 2px solid white;
+ }
