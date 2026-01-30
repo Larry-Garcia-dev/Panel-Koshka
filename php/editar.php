@@ -26,11 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tallaPersonalizada = trim($_POST['talla_personalizada'] ?? '');
     $colores_seleccionados_str = $_POST['selected_colors'] ?? '';
     $colores_combinados = $_POST['colores_combinados'] ?? [];
+    
+    // --- NUEVO: Capturar campo Estampado ---
+    $estampado = isset($_POST['estampado']) ? 1 : 0;
 
     try {
         $conexion->beginTransaction();
 
-        // ▼▼▼ LÓGICA DE IMAGEN CORREGIDA (la que solicitaste) ▼▼▼
+        // ▼▼▼ LÓGICA DE IMAGEN CORREGIDA ▼▼▼
         $imgRuta = null; 
         if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
             $tmpName = $_FILES['productImage']['tmp_name'];
@@ -42,9 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Se construye la consulta de forma dinámica
-        $query = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, categoria_id=?";
-        $params = [$nombre, $descripcion, $precio, $stock, $categoria_id];
+        // --- ACTUALIZADO: Se construye la consulta de forma dinámica incluyendo estampado ---
+        // Agregamos 'estampado=?' a la consulta base
+        $query = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, categoria_id=?, estampado=?";
+        $params = [$nombre, $descripcion, $precio, $stock, $categoria_id, $estampado];
         
         // Solo se añade la imagen a la consulta si se subió una nueva
         if ($imgRuta !== null) {
@@ -57,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $stmt = $conexion->prepare($query);
         $stmt->execute($params);
-        // ▲▲▲ FIN DE LA LÓGICA DE IMAGEN CORREGIDA ▲▲▲
+        // ▲▲▲ FIN DE LA LÓGICA ACTUALIZADA ▲▲▲
 
         // --- El resto de la lógica para tallas y colores se mantiene intacta ---
 
@@ -110,7 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // ===============================================
 // ========= CARGAR DATOS PARA LA VISTA (GET) =========
 // ===============================================
-// (Esta sección no necesita cambios, ya funciona correctamente)
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $producto = $conexion->prepare("SELECT * FROM productos WHERE id = ?");

@@ -133,13 +133,20 @@ include("../php/create.php");
                                 </div>
                             </div>
                         </div>
+                       
                         <div class="mb-3">
-                            <h3 class="mb-3 fw-semibold">Paleta de Colores *</h3>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="mb-0 fw-semibold">Paleta de Colores *</h3>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="estampado" name="estampado" value="1">
+                                    <label class="form-check-label fw-semibold" for="estampado">¿Es Estampado?</label>
+                                </div>
+                            </div>
                             <input type="hidden" name="selected_colors" id="selectedColorsInput">
                             <div id="color-palette-container">
                             </div>
                         </div>
-                        
+
                         <hr class="my-4">
 
                         <div class="mb-3">

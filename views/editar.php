@@ -3,6 +3,7 @@ require "../php/editar.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ require "../php/editar.php";
     <style>
     </style>
 </head>
+
 <body>
     <?php include "nav.php"; ?>
 
@@ -33,7 +35,7 @@ require "../php/editar.php";
                 <form method="POST" enctype="multipart/form-data" action="../php/editar.php">
                     <input type="hidden" name="product_id" value="<?= htmlspecialchars($producto['id']); ?>">
                     <input type="hidden" name="imagen_actual" value="<?= htmlspecialchars($producto['img']); ?>">
-                    
+
                     <div class="row gx-5">
                         <div class="col-lg-6">
                             <div class="mb-3">
@@ -69,7 +71,7 @@ require "../php/editar.php";
                                 </select>
                             </div>
                         </div>
-                       <div class="col-lg-6">
+                        <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Imagen del Producto</label>
                                 <div class="mb-2 text-center">
@@ -118,7 +120,7 @@ require "../php/editar.php";
                     <div class="mb-4">
                         <h4 class="fw-semibold mb-3">Colores Únicos</h4>
                         <div id="current-colors-container" class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                             <?php foreach ($productoColores as $color): ?>
+                            <?php foreach ($productoColores as $color): ?>
                                 <span class="color-swatch" style="background-color: <?= htmlspecialchars($color['codigo_hex']); ?>;" title="<?= htmlspecialchars($color['nombre']); ?>"></span>
                             <?php endforeach; ?>
                         </div>
@@ -126,9 +128,18 @@ require "../php/editar.php";
                         <input type="hidden" name="selected_colors" id="selectedColorsInput">
                         <div id="color-palette-container"></div>
                     </div>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="fw-semibold mb-0">Colores Únicos</h4>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="estampado" name="estampado" value="1" <?= $producto['estampado'] == 1 ? 'checked' : '' ?>>
+                                <label class="form-check-label fw-semibold" for="estampado">¿Es Estampado?</label>
+                            </div>
+                        </div>
+                    </div>
 
                     <hr class="my-4">
-                    
+
                     <div class="mb-3">
                         <h4 class="mb-3 fw-semibold">Editar Colores Combinados</h4>
                         <div id="combined-colors-container">
@@ -174,11 +185,12 @@ require "../php/editar.php";
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         window.preselectedColorIds = <?php echo json_encode($coloresSeleccionadosIds); ?>;
     </script>
     <script src="../js/editar.js"></script>
 
 </body>
+
 </html>

@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tallas_seleccionadas = $_POST['sizes'] ?? [];
     $talla_personalizada = trim($_POST['custom_size'] ?? '');
     $colores_seleccionados_str = $_POST['selected_colors'] ?? '';
+    
+    // --- NUEVO: Capturar campo Estampado ---
+    // Si el checkbox no está marcado, no se envía en el POST, por lo tanto asignamos 0
+    $estampado = isset($_POST['estampado']) ? 1 : 0; 
 
     // Procesar imagen
     $ruta_relativa = null;
@@ -52,8 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conexion->beginTransaction();
 
-        $stmt = $conexion->prepare("INSERT INTO productos (nombre, descripcion, precio, stock, categoria_id, img) VALUES (:nombre, :descripcion, :precio, :stock, :categoria_id, :img)");
-        $stmt->execute([':nombre' => $nombre, ':descripcion' => $descripcion, ':precio' => $precio, ':stock' => $stock, ':categoria_id' => $categoria_id, ':img' => $ruta_relativa]);
+        // --- ACTUALIZADO: Insertar incluyendo el campo 'estampado' ---
+        $stmt = $conexion->prepare("INSERT INTO productos (nombre, descripcion, precio, stock, categoria_id, estampado, img) VALUES (:nombre, :descripcion, :precio, :stock, :categoria_id, :estampado, :img)");
+        $stmt->execute([
+            ':nombre' => $nombre, 
+            ':descripcion' => $descripcion, 
+            ':precio' => $precio, 
+            ':stock' => $stock, 
+            ':categoria_id' => $categoria_id, 
+            ':estampado' => $estampado, // Se agrega el valor de estampado
+            ':img' => $ruta_relativa
+        ]);
         $producto_id = $conexion->lastInsertId();
 
         // Guardar tallas
@@ -105,3 +118,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Error al guardar el producto: " . $e->getMessage());
     }
 }
+?>

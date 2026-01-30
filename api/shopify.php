@@ -1,4 +1,5 @@
 <?php
+// api/shopify.php
 
 // --- 1. INCLUIR LA CONEXIÓN A LA BASE DE DATOS ---
 require '../config/db.php'; // La variable de conexión es $conexion
@@ -42,6 +43,7 @@ try {
         'precio' => (float)$producto['precio'],
         'stock' => (int)$producto['stock'],
         'categoria' => ['id' => (int)$producto['categoria_id'], 'nombre' => $producto['categoria_nombre']],
+        'estampado' => (bool)$producto['estampado'], // --- NUEVO: Campo estampado agregado ---
         'imagen_url' => $producto['img'],
         'estado' => $producto['estado'],
         'tallas' => $tallas,
